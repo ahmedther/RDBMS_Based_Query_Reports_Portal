@@ -1,0 +1,124 @@
+{% extends "reports/base.html" %}
+
+{% block content %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>KDAH</title>
+  <meta content="" name="description">
+
+  <meta content="" name="keywords">
+
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href={% static 'reports/index_aos.css' %} rel="stylesheet">
+  <link href={% static 'reports/index_bootstrap.min.css' %} rel="stylesheet">
+  <link href={% static 'reports/index_bootstrap-icons.css' %} rel="stylesheet">
+  
+  
+  
+
+  <!-- Template Main CSS File -->
+  <link href={% static 'reports/index_style.css' %} rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: FlexStart - v1.9.0
+  * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+
+
+      <nav id="navbar" class="navbar">
+        
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center">
+          <h1 data-aos="fade-up">The content of this website is highly confidential and intended for the recipient specified.</h1>
+          <h2 data-aos="fade-up" data-aos-delay="400">It is strictly forbidden to share any reports with any person within or outside the hospital.</h2>
+          <div data-aos="fade-up" data-aos-delay="600">
+            <div class="text-center text-lg-start">
+              <a href={% url 'base' %} class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                <span>I Agree</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+          <img src={% static 'reports/index_hero1.png' %} class="img-fluid" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+
+
+
+   
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Kokilaben Dhirubhai Ambani Hospital</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+
+        Designed by <a href="#">Ahmed Qureshi</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+  </svg></a>
+
+  <!-- Vendor JS Files -->
+  
+  <script src={% static 'reports/index_aos.js' %}></script>
+  
+  <script src={% static 'reports/index_glightbox.min.js' %}></script>
+  
+  <script src={% static 'reports/index_swiper-bundle.min.js' %}></script>
+
+
+  <!-- Template Main JS File -->
+  <script src={% static 'reports/index_main.js' %}></script>
+
+</body>
+
+</html>
+
+{% endblock %}

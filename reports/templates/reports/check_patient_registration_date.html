@@ -1,0 +1,81 @@
+
+{% extends "reports/base.html" %}
+
+{% block content %}
+
+
+
+<form method='POST'>
+    {% csrf_token %}
+
+    <div class="d-flex justify-content-center">
+    <div class="input-group mb-3" style='width:600px'>
+        <button class="btn btn-primary btn-lg mr-5" style='width:275px' type="button" id="button-addon1">UHID</button>
+        <input type="text" name='uhid'class="form-control btn-outline-secondary" style='width:100px'  placeholder="Please Enter The UHID Number" aria-label="Example text with button addon" aria-describedby="button-addon1">
+      </div></div>
+
+    
+	<div class="d-flex justify-content-center">
+    <div class='btnhold'>
+        <button type="submit" class="btn btn-primary btn-lg mr-5" style='width:275px'>Search</button>
+    
+        <button type="button"  onclick="export_data()" class="btn btn-secondary btn-lg" style='width:275px'>Download</button> 
+	</div></div>
+    </form>
+
+    {% if check_patient_registration_date_data %}
+
+	
+
+    <section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Check Patient Registration Date</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+						<table class="table" id="table_id">
+						  <thead class="thead-dark">
+						    <tr>
+						      <th>PATIENT ID</th>
+						      <th>REGN DATE</th>
+						      <th>ADDED DATE</th>
+						      
+                              <th>&nbsp;</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+                            {% for data in check_patient_registration_date_data %}
+						    <tr class="alert" role="alert">
+                                <td>{{ data.0 }}</td>
+						        <td>{{ data.1 }}</td>
+                                <td>{{ data.2 }}</td>
+                                
+						      <td>
+						      	<a href="#" class="close" data-dismiss="alert" aria-label="Close">
+				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
+				          	
+				          	</a>
+				        	</td>
+						    </tr>
+                            {% endfor %}
+						  </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+						        
+
+      
+      
+
+{% endif %}
+{% endblock %}

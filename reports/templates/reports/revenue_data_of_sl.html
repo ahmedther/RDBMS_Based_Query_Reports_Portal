@@ -1,0 +1,112 @@
+
+{% extends "reports/base.html" %}
+
+{% block content %}
+
+
+
+<form method='POST'>
+    {% csrf_token %}
+
+	<div class="d-flex justify-content-center">
+    <div class='btnhold'>
+        <button type="submit" class="btn btn-primary btn-lg mr-5" style='width:275px'>Search</button>
+    
+        <button type="button"  onclick="export_data()" class="btn btn-secondary btn-lg" style='width:275px'>Download</button> 
+	</div></div>
+    </form>
+
+    {% if revenue_data_of_sl_data %}
+
+	
+
+    <section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Revenue Data of SL</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+						<table class="table" id="table_id">
+						  <thead class="thead-dark">
+						    <tr>
+						      <th>SER DATE</th>
+						      <th>SER TIME</th>
+						      <th>TXN DATE</th>
+						      <th>TXN TIME</th>
+                              <th>SERV CODE</th>
+                              <th>SERV DESC</th>
+							  <th>SERV GRP CODE</th>
+							  <th>SERV GRP DESC</th>
+							  <th>PHYSICIAN ID</th>
+							  <th>PATIENT TYPE</th>
+							  <th>PATIENT ID</th>
+							  <th>PATIENT NAME</th>
+							  <th>AMOUNT</th>
+							  <th>DISC AMOUNT</th>
+							  <th>ROUNDING AMOUNT</th>
+							  <th>ADDL CHG</th>
+							  <th>EPISODE ID</th>
+							  <th>ENCOUNTER ID</th>
+							  <th>STORE CODE</th>
+							  <th>BLNG CLASS CODE</th>
+							  <th>BED CLASS CODE</th>
+							  <th>GL CODE</th>
+							  <th>DEPT CODE REV</th>
+							  <th>&nbsp;</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+                            {% for data in revenue_data_of_sl_data %}
+						    <tr class="alert" role="alert">
+                                <td>{{ data.0 }}</td>
+						        <td>{{ data.1 }}</td>
+								<td>{{ data.2 }}</td>
+								<td>{{ data.3 }}</td>
+								<td>{{ data.4 }}</td>
+								<td>{{ data.5 }}</td>
+								<td>{{ data.6 }}</td>
+								<td>{{ data.7 }}</td>
+								<td>{{ data.8 }}</td>
+								<td>{{ data.9 }}</td>
+								<td>{{ data.10 }}</td>
+								<td>{{ data.11 }}</td>
+								<td>{{ data.12 }}</td>
+								<td>{{ data.13 }}</td>
+								<td>{{ data.14 }}</td>
+								<td>{{ data.15 }}</td>
+								<td>{{ data.16 }}</td>
+								<td>{{ data.17 }}</td>
+								<td>{{ data.18 }}</td>
+								<td>{{ data.19 }}</td>
+								<td>{{ data.20 }}</td>
+								<td>{{ data.21 }}</td>
+								<td>{{ data.22 }}</td>
+								<td>
+						      	<a href="#" class="close" data-dismiss="alert" aria-label="Close">
+				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
+				          	
+				          	</a>
+				        	</td>
+						    </tr>
+                            {% endfor %}
+						  </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+						        
+
+      
+      
+
+{% endif %}
+{% endblock %}

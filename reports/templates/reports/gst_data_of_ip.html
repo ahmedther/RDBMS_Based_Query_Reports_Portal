@@ -1,0 +1,167 @@
+
+{% extends "reports/base.html" %}
+
+{% block content %}
+
+
+
+<form method='POST'>
+    {% csrf_token %}
+
+	<div class="d-flex justify-content-center">
+    <div class='btnhold'>
+        <button type="submit" class="btn btn-primary btn-lg mr-5" style='width:275px'>Search</button>
+    
+        <button type="button"  onclick="export_data()" class="btn btn-secondary btn-lg" style='width:275px'>Download</button> 
+	</div></div>
+    </form>
+
+    {% if gst_data_of_ip_data %}
+
+	
+
+    <section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">GST Data of IP</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+						<table class="table" id="table_id">
+						  <thead class="thead-dark">
+						    <tr>
+						      <th>OPERATING FACILITY ID</th>
+						      <th>EPISODE TYPE</th>
+						      <th>EPISODE ID</th>
+						      <th>BILL DOC DATE</th>
+                              <th>SERVICE DATE</th>
+                              <th>BILL DOC TYPE CODE</th>
+							  <th>BILL DOC NUM</th>
+							  <th>BILL NUM</th>
+							  <th>PATIENT ID</th>
+							  <th>PATIENT NAME MAST</th>
+							  <th>Patient Address</th>
+							  <th>Patient City</th>
+							  <th>Patient District</th>
+							  <th>Patient State</th>
+							  <th>BLNG SERV CODE</th>
+							  <th>LONG DESC</th>
+							  <th>ORG GROSS CHARGE AMT</th>
+							  <th>ORG DISC AMT</th>
+							  <th>ORG NET CHARGE AMT</th>
+							  <th>BILL LEVEL DISCOUNT BREAKUP</th>
+							  <th>RULE CODE</th>
+							  <th>RULETYPE</th>
+							  <th>GST TYPE</th>
+							  <th>ACT GROSS AMT</th>
+							  <th>ADDL CHARGE AMT IN CHARGE</th>
+							  <th>ADDL CHARGE AMT</th>
+							  <th>INCLUDED IN PRICE YN</th>
+							  <th>GOODS SERVICES</th>
+							  <th>HSN SAC CODE</th>
+							  <th>CUST CODE</th>
+							  <th>LONG NAME</th>
+							  <th>GSTIN</th>
+							  <th>Customer Address1</th>
+                              <th>Customer Address2</th>
+                              <th>Customer Address3</th>
+                              <th>State Place of Supply</th>
+                              <th>SERV QTY</th>
+                              <th>UOM</th>
+                              <th>Bill Of Supply</th>
+                              <th>TRX POSTED IND</th>
+                              <th>TRX STATUS</th>
+                              <th>BLNG GRP ID</th>
+                              <th>GROSS AMT</th>
+                              <th>SERV DISC AMT</th>
+                              <th>MAN DISC AMT</th>
+                              <th>DISC</th>
+                              <th>BILL AMT</th>
+                              <th>BILL PRV DOC NUMBER</th>
+                              <th>BILL PRV DOC TYPE CODE</th>
+                              <th>ADDED AT WS NO</th>
+
+						      <th>&nbsp;</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+                            {% for data in gst_data_of_ip_data %}
+						    <tr class="alert" role="alert">
+                                <td>{{ data.0 }}</td>
+						        <td>{{ data.1 }}</td>
+								<td>{{ data.2 }}</td>
+								<td>{{ data.3 }}</td>
+								<td>{{ data.4 }}</td>
+								<td>{{ data.5 }}</td>
+								<td>{{ data.6 }}</td>
+								<td>{{ data.7 }}</td>
+								<td>{{ data.8 }}</td>
+								<td>{{ data.9 }}</td>
+								<td>{{ data.10 }}</td>
+								<td>{{ data.11 }}</td>
+								<td>{{ data.12 }}</td>
+								<td>{{ data.13 }}</td>
+								<td>{{ data.14 }}</td>
+								<td>{{ data.15 }}</td>
+								<td>{{ data.16 }}</td>
+								<td>{{ data.17 }}</td>
+								<td>{{ data.18 }}</td>
+								<td>{{ data.19 }}</td>
+								<td>{{ data.20 }}</td>
+								<td>{{ data.21 }}</td>
+								<td>{{ data.22 }}</td>
+								<td>{{ data.23 }}</td>
+								<td>{{ data.24 }}</td>
+								<td>{{ data.25 }}</td>
+								<td>{{ data.26 }}</td>
+								<td>{{ data.27 }}</td>
+								<td>{{ data.28 }}</td>
+								<td>{{ data.29 }}</td>
+								<td>{{ data.30 }}</td>
+								<td>{{ data.31 }}</td>
+								<td>{{ data.32 }}</td>
+								<td>{{ data.33 }}</td>
+                                <td>{{ data.34 }}</td>
+                                <td>{{ data.35 }}</td>
+                                <td>{{ data.36 }}</td>
+                                <td>{{ data.37 }}</td>
+                                <td>{{ data.38 }}</td>
+                                <td>{{ data.39 }}</td>
+                                <td>{{ data.40 }}</td>
+                                <td>{{ data.41 }}</td>
+                                <td>{{ data.42 }}</td>
+                                <td>{{ data.43 }}</td>
+                                <td>{{ data.44 }}</td>
+                                <td>{{ data.45 }}</td>
+                                <td>{{ data.46 }}</td>
+                                <td>{{ data.47 }}</td>
+                                <td>{{ data.48 }}</td>
+                                <td>{{ data.49 }}</td>
+						      <td>
+						      	<a href="#" class="close" data-dismiss="alert" aria-label="Close">
+				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
+				          	
+				          	</a>
+				        	</td>
+						    </tr>
+                            {% endfor %}
+						  </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+						        
+
+      
+      
+
+{% endif %}
+{% endblock %}

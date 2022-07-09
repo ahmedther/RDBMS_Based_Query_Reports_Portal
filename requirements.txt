@@ -1,0 +1,7 @@
+django
+whitenoise
+cx_Oracle
+windows-curses
+wfastcgi
+pandas
+XlsxWriter

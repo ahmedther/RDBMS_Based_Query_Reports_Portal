@@ -1,0 +1,680 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="keywords" content="html, css bootstrap, mega menu, navbar, large dropdown, menu CSS examples" />
+	<meta name="description" content="Bootstrap 5 navbar megamenu examples with simple css demo code" />  
+  <meta name="description" content="" /><meta name="googlebot" content="noarchive" /><meta name="author" content="Gida" /><meta name="company" content="Kokilaben Dhirubhai Ambani Hospital" />
+  <meta name="content-language" content="en" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">   
+
+	<title>Kokilaben Hospital Reports Portal Login</title>
+
+  <link rel="shortcut icon" href={% static 'reports/favicon.ico' %} type="image/x-icon">
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href={% static 'reports/table_style.css' %}>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
+
+<style type="text/css">
+
+  #logo {
+
+    min-width: 30px;
+    min-height: 30px;
+    width: 30px;
+    height: 30px;
+  }
+
+
+.navbar .megamenu{ padding: 1rem; }
+/* ============ desktop view ============ */
+@media all and (min-width: 992px) {
+	
+	.navbar .has-megamenu{position:static!important;}
+	.navbar .megamenu{left:0; right:0; width:100%; margin-top:0;  }
+	
+}	
+/* ============ desktop view .end// ============ */
+
+
+/* ============ mobile view ============ */
+@media(max-width: 991px){
+	.navbar.fixed-top .navbar-collapse, .navbar.sticky-top .navbar-collapse{
+		overflow-y: auto;
+	    max-height: 90vh;
+	    margin-top:10px;
+	}
+}
+/* ============ mobile view .end// ============ */
+</style>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function(){
+        /////// Prevent closing from click inside dropdown
+        document.querySelectorAll('.dropdown-menu').forEach(function(element){
+        	element.addEventListener('click', function (e) {
+        		e.stopPropagation();
+        	});
+        })
+    }); 
+	// DOMContentLoaded  end
+</script>
+
+</head>
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+
+
+      <nav id="navbar" class="navbar">
+        
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    
+
+	<div class="container">
+
+<!-- ============= COMPONENT ============== -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+<div class="container-fluid">
+	
+  <a class="navbar-brand" href={% url 'base' %}>
+    <img src={% static 'reports/logo1.png' %} id="logo" class="d-inline-block align-top"  alt="">
+     KDAH
+   </a>
+
+
+	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"  aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="main_nav">
+		<ul class="navbar-nav">
+			
+      
+      <li class="nav-item active"> <a class="nav-link" href={% url 'base' %}>Home</a></a> </li>
+
+      
+
+			<li class="nav-item dropdown has-megamenu">
+				{% if pharmacy_permission %} <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"> Pharmacy  </a> {% endif %}
+				<div class="dropdown-menu megamenu" role="menu">
+					<div class="row g-3">
+						<div class="col-lg-3 col-6">
+							<div class="col-megamenu">
+
+								<!-- <h6 class="title">Title Menu One</h6> -->
+
+								<ul class="list-unstyled">
+									{% if stock_permission %} <li><a class="dropdown-item text-wrap" href={% url 'stock' %}>Stock</a></li> {% endif %}
+									  {% if stock_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'stock_report' %}>Stock Report</a></li>{% endif %}
+                      {% if stock_value_permission %}<li><a class="dropdown-item text-wrap" href={% url 'stock_value' %}>Stock Value</a>{% endif %}
+                        {% if bin_location_op_permission %}<li><a class="dropdown-item text-wrap" href={% url 'bin_location_op' %}>Bin Location OP</a></li>{% endif %}
+                          {% if itemwise_storewise_stock_permission %}<li><a class="dropdown-item text-wrap" href={% url 'itemwise_storewise_stock' %}>Itemwise Storewise Stock Value</a>{% endif %}
+                            {% if batchwise_stock_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'batchwise_stock_report' %}>Batch Wise Stock Report</a>{% endif %}
+                              {% if pharmacy_op_returns_permission %}<li><a class="dropdown-item text-wrap" href={% url 'pharmacy_op_returns' %}>Pharmacy OP Returns</a>{% endif %}
+                                {% if predischarge_medication_permission %}<li><a class="dropdown-item text-wrap" href={% url 'predischarge_medication' %}>Predischarge Medication</a>{% endif %}
+                                  {% if predischarge_initiate_permission %}<li><a class="dropdown-item text-wrap" href={% url 'predischarge_initiate' %}>Predischarge Initiate</a>{% endif %}
+                                    {% if intransites_unf_sal_ret_permission %}<li><a class="dropdown-item text-wrap" href={% url 'intransites_unf_sal_ret' %}>Intransites Unf Sal Ret</a>{% endif %}
+                                      {% if intransites_unf_stk_tfr_permission %}<li><a class="dropdown-item text-wrap" href={% url 'intransites_unf_stk_tfr' %}>Intransites Unf Stk Tfr</a>{% endif %}
+                                        {% if intransites_acknowledgement_pending_iss_permission %}<li><a class="dropdown-item text-wrap" href={% url 'intransites_acknowledgement_pending_iss' %}>Intransites Acknowledgement Pending ISS</a>{% endif %}
+                                          {% if intransites_acknowledgement_pending_iss_rt_permission %}<li><a class="dropdown-item text-wrap" href={% url 'intransites_acknowledgement_pending_iss_rt' %}>Intransites Acknowledgement Pending ISS RT</a>{% endif %}
+								</ul>     
+							</div>  <!-- col-megamenu.// -->
+						</div><!-- end col-3 -->
+						<div class="col-lg-3 col-6">
+							<div class="col-megamenu">
+								<!-- <h6 class="title">Title Menu Two</h6> -->
+                
+								<ul class="list-unstyled">
+                    {% if restricted_antimicrobials_consumption_report_permission %}<li><a class="dropdown-item text-wrap text-wrap" href={% url 'restricted_antimicrobials_consumption_report' %}>Restricted Antimicrobials Consumption Report</a>{% endif %}
+                      {% if important_antimicrobials_antibiotics_consumption_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'important_antimicrobials_antibiotics_consumption_report' %}>Important Antimicrobials / Antibiotics Consumption Report</a>{% endif %}
+                        {% if pharmacy_indent_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'pharmacy_indent_report' %}>Pharmacy Indent Report</a>{% endif %}
+                          {% if new_admission_indents_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'new_admission_indents_report' %}>New Admission’s Indents Report</a>{% endif %}
+                            {% if return_medication_without_return_request_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'return_medication_without_return_request_report' %}>Return Medication Without Return Request Report</a>{% endif %}
+                              {% if deleted_pharmacy_prescriptions_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'deleted_pharmacy_prescriptions_report' %}>Deleted Pharmacy Prescriptions Report</a>{% endif %}
+                                {% if pharmacy_direct_sales_report_permission %} <li><a class="dropdown-item text-wrap" href={% url 'pharmacy_direct_sales_report' %}>Pharmacy Direct Sales Report</a>{% endif %}
+                                  {% if intransites_unf_sal_permission %} <li><a class="dropdown-item text-wrap" href={% url 'intransites_unf_sal' %}>Intransites Unf Sal</a>{% endif %}
+                                    {% if intransites_confirm_pending_permission %} <li><a class="dropdown-item text-wrap" href={% url 'intransites_confirm_pending' %}>Intransites Confirm Pending</a>{% endif %}
+                                      {% if non_billable_consumption_permission %} <li><a class="dropdown-item text-wrap" href={% url 'non_billable_consumption' %}>Non Billable Consumption</a>{% endif %}
+                                        {% if non_billable_consumption1_permission %} <li><a class="dropdown-item text-wrap" href={% url 'non_billable_consumption1' %}>Non Billable Consumption 1</a>{% endif %}
+								</ul>
+							</div>  <!-- col-megamenu.// -->
+						</div><!-- end col-3 -->
+						<div class="col-lg-3 col-6">
+							<div class="col-megamenu">
+								<!-- <h6 class="title">Title Menu Two</h6> -->
+								<ul class="list-unstyled">
+                  {% if pharmacy_charges_and_implant_pending_indent_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'pharmacy_charges_and_implant_pending_indent_report' %}>Pharmacy Charges & Implant Pending Indent Report</a>{% endif %}
+                    {% if pharmacy_direct_returns_sale_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'pharmacy_direct_returns_sale_report' %}>Pharmacy Direct Returns Sale Report</a>{% endif %}
+                      {% if current_inpatients_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'current_inpatients_report' %}>Current Inpatients Reports</a>{% endif %}
+                        {% if consigned_item_detail_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'consigned_item_detail_report' %}>Consigned Item Detail Report</a>{% endif %}
+                          {% if schedule_h1_drug_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'schedule_h1_drug_report' %}>Schedule H1 Drug Report</a>{% endif %}
+                            {% if pharmacy_ward_return_requests_with_status_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'pharmacy_ward_return_requests_with_status_report' %}>Pharmacy Ward Return Requests with Status Report</a>{% endif %}
+                              {% if pharmacy_indent_deliver_summary_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'pharmacy_indent_deliver_summary_report' %}>Pharmacy Indent Deliver Summary Report</a>{% endif %}  
+                                {% if intransites_stk_tfr_acknowledgement_pending_permission %}<li><a class="dropdown-item text-wrap" href={% url 'intransites_stk_tfr_acknowledgement_pending' %}>Intransites Stk Tfr Acknowledgement Pending Report</a>{% endif %}  
+                                  {% if folley_and_central_line_permission %}<li><a class="dropdown-item text-wrap" href={% url 'folley_and_central_line' %}>Folley and Central Line</a>{% endif %}  
+                                    {% if angiography_kit_permission %}<li><a class="dropdown-item text-wrap" href={% url 'angiography_kit' %}>Angiography Kit</a>{% endif %}  
+								</ul>
+							</div>  <!-- col-megamenu.// -->
+						</div>    
+						<div class="col-lg-3 col-6">
+							<div class="col-megamenu">
+								<!-- <h6 class="title">Title Menu Two</h6> -->
+								<ul class="list-unstyled">
+									{% if new_admission_dispense_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'new_admission_dispense_report' %}>New Admission Dispense Report</a>{% endif %}
+                    {% if pharmacy_op_sale_report_userwise_permission %}<li><a class="dropdown-item text-wrap" href={% url 'pharmacy_op_sale_report_userwise' %}>Pharmacy OP Sale Report Userwise</a>{% endif %}
+                      {% if pharmacy_consumption_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'pharmacy_consumption_report' %}>Pharmacy Consumption Report</a>{% endif %}
+                        {% if food_drug_interaction_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'food_drug_interaction_report' %}>Food-Drug Interaction Report</a>{% endif %}
+                          {% if intransite_stock_permission %}<li><a class="dropdown-item text-wrap" href={% url 'intransite_stock' %}>Intransite Stock</a>{% endif %}
+                            {% if grn_data_permission %}<li><a class="dropdown-item text-wrap" href={% url 'grn_data' %}>GRN Data</a>{% endif %}
+                              {% if drug_duplication_override_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'drug_duplication_override_report' %}>Drug Duplication Override Report</a>{% endif %}
+                                {% if drug_interaction_override_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'drug_interaction_override_report' %}>Drug Interaction Override Report</a>{% endif %}
+                                  {% if sale_consumption_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'sale_consumption_report' %}>Sale Consumption Report</a>{% endif %}
+                                    {% if sale_consumption_report1_permission %}<li><a class="dropdown-item text-wrap" href={% url 'sale_consumption_report1' %}>Sale Consumption Report 1</a>{% endif %}
+                                  
+								</ul>
+							</div>  <!-- col-megamenu.// -->
+						</div><!-- end col-3 -->
+            
+					</div><!-- end row --> 
+				</div> <!-- dropdown-mega-menu.// -->
+      </li>
+      
+        <li class="nav-item dropdown has-megamenu">
+          {% if finance_permission %} <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"> Finance  </a> {% endif %}
+          <div class="dropdown-menu megamenu" role="menu">
+            <div class="row g-3">
+              <div class="col-lg-3 col-6">
+                <div class="col-megamenu">
+  
+                  <!-- <h6 class="title">Title Menu One</h6> -->
+  
+                  <ul class="list-unstyled">
+                    {% if credit_outstanding_bill_permission %}<li><a class="dropdown-item text-wrap" href={% url 'credit_outstanding_bill' %}>Credit Bill Outstanding</a>{% endif %}
+                      {% if tpa_letter_permission %}<li><a class="dropdown-item text-wrap" href={% url 'tpa_letter' %}>TPA Letter</a>{% endif %}
+                        {% if online_consultation_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'online_consultation_report' %}>Online Consultation Report</a>{% endif %}
+                          {% if contract_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'contract_report' %}>Contract Reports</a>{% endif %}
+                           
+                </ul>
+                </div>  <!-- col-megamenu.// -->
+              </div><!-- end col-3 -->
+              <div class="col-lg-3 col-6">
+                <div class="col-megamenu">
+                  <!-- <h6 class="title">Title Menu Two</h6> -->
+                  
+                  <ul class="list-unstyled">
+                    {% if package_contract_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'package_contract_report' %}>Package Contract Report</a>{% endif %}
+                      {% if credit_card_reconciliation_report_permission %}<li><a class="dropdown-item" href={% url 'credit_card_reconciliation_report' %}>Credit Card Reconciliation Report</a>{% endif %}
+                        {% if covid_ot_surgery_details_permission %}<li><a class="dropdown-item text-wrap" href={% url 'covid_ot_surgery_details' %}>Covid OT Surgery Details</a>{% endif %}
+                          {% if gst_data_of_pharmacy_permission %}<li><a class="dropdown-item text-wrap" href={% url 'gst_data_of_pharmacy' %}>GST Data of Pharmacy</a>{% endif %}
+                  </ul>
+                </div>  <!-- col-megamenu.// -->
+              </div><!-- end col-3 -->
+              <div class="col-lg-3 col-6">
+                <div class="col-megamenu">
+                  <!-- <h6 class="title">Title Menu Two</h6> -->
+                  <ul class="list-unstyled">
+                    {% if gst_data_of_pharmacy_return_permission %}<li><a class="dropdown-item text-wrap" href={% url 'gst_data_of_pharmacy_return' %}>GST Data of Pharmacy Return</a>{% endif %}
+                      {% if gst_data_of_ip_permission %}<li><a class="dropdown-item text-wrap" href={% url 'gst_data_of_ip' %}>GST Data of IP</a>{% endif %}
+                        {% if gst_data_of_op_permission %}<li><a class="dropdown-item text-wrap" href={% url 'gst_data_of_op' %}>GST Data of OP</a>{% endif %}
+                    </ul>
+                </div>  <!-- col-megamenu.// -->
+              </div>    
+              <div class="col-lg-3 col-6">
+                <div class="col-megamenu">
+                  <!-- <h6 class="title">Title Menu Two</h6> -->
+                  <ul class="list-unstyled">
+                    {% if revenue_data_of_sl_permission %}<li><a class="dropdown-item text-wrap" href={% url 'revenue_data_of_sl' %}>Revenue Data of SL</a>{% endif %}
+                      {% if revenue_data_of_sl1_permission %}<li><a class="dropdown-item text-wrap" href={% url 'revenue_data_of_sl1' %}>Revenue Data of SL 1</a>{% endif %}
+                        {% if revenue_data_of_sl2_permission %}<li><a class="dropdown-item text-wrap" href={% url 'revenue_data_of_sl2' %}>Revenue Data of SL 2</a>{% endif %}
+                          {% if revenue_data_of_sl3_permission %}<li><a class="dropdown-item text-wrap" href={% url 'revenue_data_of_sl3' %}>Revenue Data of SL 3</a>{% endif %}
+                   
+                  </ul>
+                </div>  <!-- col-megamenu.// -->
+              </div><!-- end col-3 -->
+              
+            </div><!-- end row --> 
+          </div> <!-- dropdown-mega-menu.// -->
+        
+			</li>
+      
+      <li class="nav-item dropdown has-megamenu">
+        {% if clinical_administration_permission %} <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Clinical Administration</a>{% endif %}
+        <div class="dropdown-menu megamenu" role="menu">
+          <div class="row g-3">
+            <div class="col-lg-3 col-6">
+              <div class="col-megamenu">
+
+                <!-- <h6 class="title">Title Menu One</h6> -->
+
+                <ul class="list-unstyled">
+                  {% if pre_discharge_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'pre_discharge_report' %}>Pre Discharge Report</a>{% endif %}
+                    {% if pre_discharge_report_2_permission %}<li><a class="dropdown-item text-wrap" href={% url 'pre_discharge_report_2' %}>Pre Discharge Report 2</a>{% endif %}
+                    {% if discharge_report_2_permission %}<li><a class="dropdown-item text-wrap" href={% url 'discharge_report_2' %}>Discharge Report 2</a>{% endif %}
+                    {% if discharge_with_mis_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'discharge_with_mis_report' %}>Discharge With MIS Report</a>{% endif %}
+                      {% if needle_prick_injury_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'needle_prick_injury_report' %}>Needle Prick Injury Report</a>{% endif %}
+                        {% if practo_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'practo_report' %}>Practo Report</a>{% endif %}
+                          {% if unbilled_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'unbilled_report' %}>Unbilled Report</a>{% endif %}
+                            {% if unbilled_deposit_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'unbilled_deposit_report' %}>Unbilled Deposit Report</a>{% endif %}
+                              {% if contact_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'contact_report' %}>Contact Report</a>{% endif %}
+                                {% if current_inpatients_employee_and_dependants_permission %}<li><a class="dropdown-item text-wrap" href={% url 'current_inpatients_employee_and_dependants' %}>Current Inpatients Employee and Dependants</a>{% endif %}
+                                  {% if treatment_sheet_data_permission %}<li><a class="dropdown-item text-wrap" href={% url 'treatment_sheet_data' %}>Treatment Sheet Data</a>{% endif %}
+              </ul>
+              </div>  <!-- col-megamenu.// -->
+            </div><!-- end col-3 -->
+            <div class="col-lg-3 col-6">
+              <div class="col-megamenu">
+                <!-- <h6 class="title">Title Menu Two</h6> -->
+                
+                <ul class="list-unstyled">
+                  
+                    {% if employees_antibodies_reactive_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'employees_antibodies_reactive_report' %}>Employees Antibodies Reactive Report</a>{% endif %}
+                      {% if employees_reactive_and_non_pcr_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'employees_reactive_and_non_pcr_report' %}>Employee Reactive and Non PCR Report</a>{% endif %}
+                        {% if employee_covid_test_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'employee_covid_test_report' %}>Employee Covid Test Report</a>{% endif %}
+                          {% if bed_location_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'bed_location_report' %}>Bed Location Report</a>{% endif %}
+                            {% if home_visit_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'home_visit_report' %}>Home Visit Report</a>{% endif %}
+                              {% if cco_billing_count_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'cco_billing_count_report' %}>CCO Billing Count Report</a>{% endif %}
+                                {% if total_number_of_online_consultation_by_doctors_permission %}<li><a class="dropdown-item text-wrap" href={% url 'total_number_of_online_consultation_by_doctors' %}>Total Number of Online Consultation by Doctors</a>{% endif %}
+                </ul>
+              </div>  <!-- col-megamenu.// -->
+            </div><!-- end col-3 -->
+            <div class="col-lg-3 col-6">
+              <div class="col-megamenu">
+                <!-- <h6 class="title">Title Menu Two</h6> -->
+                <ul class="list-unstyled">
+                  {% if total_number_of_ip_patients_by_doctors_permission %}<li><a class="dropdown-item text-wrap" href={% url 'total_number_of_ip_patients_by_doctors' %}>Total Number of IP Patients by Doctors</a>{% endif %}
+                    {% if total_number_of_op_patients_by_doctors_permission %}<li><a class="dropdown-item text-wrap" href={% url 'total_number_of_op_patients_by_doctors' %}>Total Number of OP Patients by Doctors</a>{% endif %}
+                      {% if opd_changes_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'opd_changes_report' %}>OPD Changes Report</a>{% endif %}
+                        {% if ehc_conversion_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'ehc_conversion_report' %}>EHC Conversion Report</a>{% endif %}
+                          {% if ehc_package_range_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'ehc_package_range_report' %}>EHC Package Range Report</a>{% endif %}
+                            {% if error_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'error_report' %}>Error Report</a>{% endif %}
+                              {% if ot_query_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'ot_query_report' %}>OT Query Report</a>{% endif %}
+                                {% if outreach_cancer_hospital_permission %}<li><a class="dropdown-item text-wrap" href={% url 'outreach_cancer_hospital' %}>Outreach Cancer Hospital</a>{% endif %}
+                  </ul>
+              </div>  <!-- col-megamenu.// -->
+            </div>    
+            <div class="col-lg-3 col-6">
+              <div class="col-megamenu">
+                <!-- <h6 class="title">Title Menu Two</h6> -->
+                <ul class="list-unstyled">
+                  {% if gipsa_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'gipsa_report' %}>GIPSA Report</a>{% endif %}
+                    {% if precision_patient_opd_and_online_consultation_list_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'precision_patient_opd_and_online_consultation_list_report' %}>Precision Patient OPD & Online Consultation List Report</a>{% endif %}
+                      {% if appointment_details_by_call_center_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'appointment_details_by_call_center_report' %}>Appointment Details By Call Center Report</a>{% endif %}
+                        {% if trf_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'trf_report' %}>TRF Report</a>{% endif %}
+                          {% if current_inpatients_clinical_admin_permission %}<li><a class="dropdown-item text-wrap" href={% url 'current_inpatients_clinical_admin' %}>Current Inpatients(Clinical Admin)</a>{% endif %}
+                            {% if check_patient_registration_date_permission %}<li><a class="dropdown-item text-wrap" href={% url 'check_patient_registration_date' %}>Check Patient Registration Date</a>{% endif %}
+                              {% if patient_registration_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'patient_registration_report' %}>Patient Registration Report</a>{% endif %}
+                 
+                </ul>
+              </div>  <!-- col-megamenu.// -->
+            </div><!-- end col-3 -->
+            
+          </div><!-- end row --> 
+        </div> <!-- dropdown-mega-menu.// -->
+      
+    </li>
+    
+    <li class="nav-item dropdown has-megamenu">
+      {% if marketing_permission %} <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Marketing</a>{% endif %}
+      <div class="dropdown-menu megamenu" role="menu">
+        <div class="row g-3">
+          <div class="col-lg-3 col-6">
+            <div class="col-megamenu">
+
+              <!-- <h6 class="title">Title Menu One</h6> -->
+
+              <ul class="list-unstyled">
+                {% if contract_effective_date_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'contract_effective_date_report' %}>Contract Effective Date Report</a>{% endif %}
+                  {% if admission_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'admission_report' %}>Admission Reports</a>{% endif %}
+                    {% if patient_discharge_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'patient_discharge_report' %}>Patient Discharge Report</a>{% endif %}
+            </ul>
+            </div>  <!-- col-megamenu.// -->
+          </div><!-- end col-3 -->
+          <div class="col-lg-3 col-6">
+            <div class="col-megamenu">
+              <!-- <h6 class="title">Title Menu Two</h6> -->
+              
+              <ul class="list-unstyled">
+                
+                {% if credit_letter_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'credit_letter_report' %}>Credit Letter Report</a>{% endif %}
+                  {% if corporate_ip_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'corporate_ip_report' %}>Corporate IP Report</a>{% endif %}
+                    {% if opd_consultation_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'opd_consultation_report' %}>OPD Consultation Report</a>{% endif %}
+              </ul>
+            </div>  <!-- col-megamenu.// -->
+          </div><!-- end col-3 -->
+          <div class="col-lg-3 col-6">
+            <div class="col-megamenu">
+              <!-- <h6 class="title">Title Menu Two</h6> -->
+              <ul class="list-unstyled">
+                {% if emergency_casualty_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'emergency_casualty_report' %}>Emergency Casualty Report</a>{% endif %}
+                  {% if new_registration_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'new_registration_report' %}>New Registration Report</a>{% endif %}
+                    {% if hospital_tariff_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'hospital_tariff_report' %}>Hospital Tariff Report</a>{% endif %}
+                </ul>
+            </div>  <!-- col-megamenu.// -->
+          </div>    
+          <div class="col-lg-3 col-6">
+            <div class="col-megamenu">
+              <!-- <h6 class="title">Title Menu Two</h6> -->
+              <ul class="list-unstyled">
+                {% if international_patient_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'international_patient_report' %}>International Patient Report</a>{% endif %}
+                  {% if tpa_query_permission %}<li><a class="dropdown-item text-wrap" href={% url 'tpa_query' %}>TPA Query</a>{% endif %}
+                    {% if new_admission_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'new_admission_report' %}>New Admission Report</a>{% endif %}
+               
+              </ul>
+            </div>  <!-- col-megamenu.// -->
+          </div><!-- end col-3 -->
+          
+        </div><!-- end row --> 
+      </div> <!-- dropdown-mega-menu.// -->
+    
+  </li>
+ 
+  <li class="nav-item dropdown has-megamenu">
+    {% if miscellaneous_reports_permission %} <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Miscellaneous Reports</a>
+    <div class="dropdown-menu megamenu" role="menu">
+      <div class="row g-3">
+        <div class="col-lg-3 col-6">
+          <div class="col-megamenu">
+            <!-- <h6 class="title">Title Menu Two</h6> -->
+            <ul class="list-unstyled">
+              {% if ot_scheduling_list_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'ot_scheduling_list_report' %}>OT Scheduling List Report</a>{% endif %}
+                {% if non_package_covid_patient_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'non_package_covid_patient_report' %}>Non Package Covid Patient Report</a>{% endif %}
+             
+            </ul>
+          </div>  <!-- col-megamenu.// -->
+        </div><!-- end col-3 -->
+        <div class="col-lg-3 col-6">
+          <div class="col-megamenu">
+
+            {% if billing_permission %} <h4 class="text-left" style="font-weight:bold;">&#160 Billing</h4> 
+
+            <ul class="list-unstyled">
+              {% if discharge_billing_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'discharge_billing_report' %}>Discharge Billing Report</a>{% endif %}
+                {% if discharge_billing_report_without_date_range_permission %}<li><a class="dropdown-item text-wrap" href={% url 'discharge_billing_report_without_date_range' %}>Discharge Billing Report Without Date Range</a>{% endif %}
+                  {% if discharge_billing_user_permission %}<li><a class="dropdown-item text-wrap" href={% url 'discharge_billing_user' %}>Discharge Billing User</a>{% endif %}
+                    {% if discount_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'discount_report' %}>Discount Report</a>{% endif %}
+                      {% if refund_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'refund_report' %}>Refund Report</a>{% endif %}
+                        {% if non_medical_equipment_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'non_medical_equipment_report' %}>Non Medical Equipment Report</a>{% endif %}
+                      
+                        {% endif %} <!--  End Billing If-->
+          </ul>
+          </div>  <!-- col-megamenu.// -->
+        </div><!-- end col-3 -->
+        <div class="col-lg-3 col-6">
+          <div class="col-megamenu">
+            {% if lab_permission %} <h4 class="text-left" style="font-weight:bold;">&#160 Lab</h4>
+            
+            <ul class="list-unstyled">
+              
+              {% if covid_pcr_permission %}<li><a class="dropdown-item text-wrap" href={% url 'covid_pcr' %}>Covid PCR</a>{% endif %}
+                {% if covid_2_permission %}<li><a class="dropdown-item text-wrap" href={% url 'covid_2' %}>Covid 2</a>{% endif %}
+                {% if covid_antibodies_permission %}<li><a class="dropdown-item text-wrap" href={% url 'covid_antibodies' %}>Covid Antibodies</a>{% endif %}
+                  {% if covid_antigen_permission %}<li><a class="dropdown-item text-wrap" href={% url 'covid_antigen' %}>Covid Antigen</a>{% endif %}
+                    {% if cbnaat_test_data_permission %}<li><a class="dropdown-item text-wrap" href={% url 'cbnaat_test_data' %}>CBNAAT Test Data</a>{% endif %}
+                      {% if lab_tat_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'lab_tat_report' %}>LAB TAT Report</a>{% endif %}
+                        {% if histopath_fixation_data_permission %}<li><a class="dropdown-item text-wrap" href={% url 'histopath_fixation_data' %}>Histopath Fixation Data</a>{% endif %}
+                          {% if slide_label_data_permission %}<li><a class="dropdown-item text-wrap" href={% url 'slide_label_data' %}>Slide Label Data</a>{% endif %}
+                            {% endif %} <!--  End Lab If-->
+            </ul>
+          </div>  <!-- col-megamenu.// -->
+        </div><!-- end col-3 -->
+        <div class="col-lg-3 col-6">
+          <div class="col-megamenu">
+            {% if ehc_permission %} <h4 class="text-left" style="font-weight:bold;"> &#160 EHC</h4>
+
+            <ul class="list-unstyled">
+
+              {% if ehc_operation_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'ehc_operation_report' %}>EHC Operation Report</a>{% endif %}
+                {% if ehc_operation_report_2_permission %}<li><a class="dropdown-item text-wrap" href={% url 'ehc_operation_report_2' %}>EHC Operation Report 2</a>{% endif %}
+                  {% endif %} <!--  End EHC If-->
+
+
+
+                  {% if sales_permission %} <h4 class="text-left" style="font-weight:bold;"> &#160 Sales</h4>
+                  {% if oncology_drugs_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'oncology_drugs_report' %}>Oncology Drugs Report</a>{% endif %}
+                  {% endif %} <!--  End Sales If-->
+
+                  
+                  {% if radiology_permission %} <h4 class="text-left" style="font-weight:bold;">&#160 Radiology</h4>
+                  {% if radiology_tat_report_permission %}<li><a class="dropdown-item text-wrap" href={% url 'radiology_tat_report' %}>Radiology TAT Report</a>{% endif %}
+                  {% endif %} <!--  End Radiology If-->
+                  {% endif %}<!--  End Miscellaneous If-->
+              
+              </ul>
+              <li class="nav-item "> 
+                <a class="nav-link" onclick="$('#signOutBtn').click()" href="#">Logout</a>
+                     <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
+                       {% csrf_token %}
+                       <button id="signOutBtn" type="submit">Logout</button>
+                   </form>
+                 </li>
+          </div>  <!-- col-megamenu.// -->
+          
+        </div>    
+        
+        
+        
+      </div><!-- end row --> 
+      
+    </div> <!-- dropdown-mega-menu.// -->
+    
+  
+</li>
+
+</ul>
+		
+	</div> <!-- navbar-collapse.// -->
+  
+</div> <!-- container-fluid.// -->
+
+</nav>
+
+</div>
+</header><!-- End Header -->
+<!-- ============= COMPONENT END// ============== -->
+
+
+
+
+
+  <!-- ============= COMPONENT END// ============== -->
+  
+  
+  
+</div><!-- container //  -->
+<div class="mx-auto" style="width: 600px; margin-top: 5%;">
+
+<div class="alert alert-success text-center font-weight-bold" role="alert">Welcome {{ user_name |capfirst }}
+  
+</div>
+</div>
+</div>
+
+
+</div></div>
+
+{% if page_name %}
+<div class="mx-auto" style="width: 600px;">
+
+<div class="alert alert-dark text-center font-weight-bold" role="alert">{{ page_name |capfirst }} </div> </div> {% endif %}
+
+
+
+
+  {% if error %}
+  <div class="mx-auto" style="width: 600px;">
+  <div class="alert alert-danger text-center font-weight-bold" role="alert">
+      {{ error }}
+  </div>
+</div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% block content %}{% endblock %}
+<div class="alert alert-light" role="alert">
+   <a href="#" class="alert-link"></a>
+</div>
+<div class="mx-auto" style="width: 600px;">
+<div class="alert alert-secondary" role="alert">
+  <h4 class="alert-heading text-center font-weight-bold">Web Version 1.2.0</h4>
+  <p class="alert-heading text-center">Important Notice!!!.</p>
+  <p class="alert-heading">Dear all users, the whole website has been updated and changelogs are as follows.</p>
+  <p class="mb-0">1) Inorder to view table on the website please install Excel Viewer. <a href="https://chrome.google.com/webstore/detail/office-editing-for-docs-s/gbkeegbaiigmenfmjfclcdgdpimamgkj?hl=en">Click Here To Install</a></p>
+  <p class="mb-0">2) Website best viewed on Chorme browser </p>
+  <p class="mb-0">3) Table removed. Use Excel Viewer from the given link to see data on the website</p>
+  <p class="mb-0">4) Problems with the date-time formating identified and fixed to dd-mm-yyyy hh:mm:ss</p>
+  <p class="mb-0">5) Problems while downlading excel identified and fixed</p>
+  <p class="mb-0">6) Problems with excel formating identified and fixed</p>
+  <hr>
+  <p class="mb-0 text-center">For any assistance call on 33333 / 33330 extention only.</p></div></div>
+
+</section>
+
+<script src={% static 'reports/table_jquery.min.js' %}></script>
+<script src={% static 'reports/table_popper.js' %}></script>
+<script src={% static 'reports/table_bootstrap.min.js' %}></script>
+<script src={% static 'reports/table_main.js' %}></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+<script>
+ function export_data(){
+      let data=document.getElementById('table_id');
+      var fp=XLSX.utils.table_to_book(data,{sheet:'Report from Reports Portal'});
+      XLSX.write(fp,{
+          bookType:'xlsx',
+          type:'base64'
+      });
+      XLSX.writeFile(fp, 'Report_Portal.xlsx');
+  }
+  </script>
+  <script type="text/javascript"> 
+    //	window.addEventListener("resize", function() {
+    //		"use strict"; window.location.reload(); 
+    //	});
+    
+    function export_data_formated()
+{
+var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
+var textRange; var j=0;
+tab = document.getElementById('table_id'); // id of table
+
+for(j = 0 ; j < tab.rows.length ; j++) 
+{     
+    tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+    //tab_text=tab_text+"</tr>";
+}
+
+tab_text=tab_text+"</table>";
+tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+var ua = window.navigator.userAgent;
+var msie = ua.indexOf("MSIE "); 
+
+if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+{
+    txtArea1.document.open("txt/html","replace");
+    txtArea1.document.write(tab_text);
+    txtArea1.document.close();
+    txtArea1.focus(); 
+    sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to AHmed.xls");
+}  
+else                 //other browser not tested on IE 11
+    sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+return (sa);
+}
+      </script>
+      <script type="text/javascript">
+        //	window.addEventListener("resize", function() {
+        //		"use strict"; window.location.reload(); 
+        //	});
+        
+        
+          document.addEventListener("DOMContentLoaded", function(){
+                
+        
+              /////// Prevent closing from click inside dropdown
+            document.querySelectorAll('.dropdown-menu').forEach(function(element){
+              element.addEventListener('click', function (e) {
+                e.stopPropagation();
+              });
+            })
+        
+        
+        
+            // make it as accordion for smaller screens
+            if (window.innerWidth < 992) {
+        
+              // close all inner dropdowns when parent is closed
+              document.querySelectorAll('.navbar .dropdown').forEach(function(everydropdown){
+                everydropdown.addEventListener('hidden.bs.dropdown', function () {
+                  // after dropdown is hidden, then find all submenus
+                    this.querySelectorAll('.submenu').forEach(function(everysubmenu){
+                      // hide every submenu as well
+                      everysubmenu.style.display = 'none';
+                    });
+                })
+              });
+              
+              document.querySelectorAll('.dropdown-menu a').forEach(function(element){
+                element.addEventListener('click', function (e) {
+            
+                    let nextEl = this.nextElementSibling;
+                    if(nextEl && nextEl.classList.contains('submenu')) {	
+                      // prevent opening link if link needs to open dropdown
+                      e.preventDefault();
+                      console.log(nextEl);
+                      if(nextEl.style.display == 'block'){
+                        nextEl.style.display = 'none';
+                      } else {
+                        nextEl.style.display = 'block';
+                      }
+        
+                    }
+                });
+              })
+            }
+            // end if innerWidth
+        
+          }); 
+          // DOMContentLoaded  end
+</script>
+
+
+
+
+</body>
+</html>
