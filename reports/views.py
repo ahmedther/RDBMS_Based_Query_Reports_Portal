@@ -3394,20 +3394,30 @@ def emergency_casualty_report(request):
 @allowed_users("Marketing - New Registration Report")
 def new_registration_report(request):
     if request.method == 'GET':
-        return render(request,'reports/new_registration_report.html', {'user_name':request.user.username , "page_name" : "New Registration Report", 'date_form' : DateForm()})
+        global facility
+        facility = FacilityDropdown.objects.all()
+
+        return render(request,'reports/new_registration_report.html', {
+            'user_name':request.user.username , 
+            "page_name" : "New Registration Report", 
+            'date_form' : DateForm(),
+            'facilities' : facility,
+            })
     
     elif request.method == 'POST':
+        print(request.POST)
         #Manually format To Date fro Sql Query
         from_date = date_formater(request.POST['from_date'])
         to_date = date_formater(request.POST['to_date'])
         city_input = request.POST['city_input'].upper()
+        facility_code = request.POST['facility_dropdown']
         
         db = Ora()
-        new_registration_report_value, new_registration_report_column = db.get_new_registration_report(city_input,from_date,to_date)
+        new_registration_report_value, new_registration_report_column = db.get_new_registration_report(from_date,to_date,facility_code,city_input)
         excel_file_path = excel_generator(page_name="New Registration Report",data=new_registration_report_value,column=new_registration_report_column)
         
         if not new_registration_report_value:
-            return render(request,'reports/new_registration_report.html', {'error':"Sorry!!! No Data Found", 'user_name':request.user.username,'date_form' : DateForm()})
+            return render(request,'reports/new_registration_report.html', {'error':"Sorry!!! No Data Found", 'user_name':request.user.username,'date_form' : DateForm(),'facilities':facility,})
         
         else:
             return FileResponse(open(excel_file_path, 'rb'), content_type='application/vnd.ms-excel')

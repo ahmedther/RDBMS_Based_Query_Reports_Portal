@@ -1,3 +1,4 @@
+from django.forms import NullBooleanField
 from .oracle_config import Ora
 import datetime
 import pandas as pd
@@ -34,7 +35,8 @@ def excel_generator(data,column,page_name):
     if "/" in page_name:
         page_name = page_name.replace("/","")
 
-    excel_file_path = page_name + ".xlsx"
+    excel_file_path = "web_excel_files/" + page_name + ".xlsx"
+    #excel_file_path = page_name + ".xlsx"
     excel_data = pd.DataFrame(data=data, columns=list(column))
     
     #Set destination directory to save excel.
@@ -56,15 +58,24 @@ def excel_generator(data,column,page_name):
     for i, col in enumerate(excel_data.columns):
 
         # find length of column i
-        column_len = excel_data[col].astype(str).str.len().max()
+        try:
+            column_len = excel_data[col].astype(str).str.len().max()
+        
+        except:
+            pass
         
         # Setting the length if the column header is larger
         # than the max column value length
-        column_len = max(column_len, len(col)) + 4
+        try:
+            column_len = max(column_len, len(col)) + 4
+        
+        except:
+            pass
+        
 
         # set the column length
         worksheet.set_column(i, i, column_len)
 
     generate_excel.save()
     return excel_file_path
-        
+

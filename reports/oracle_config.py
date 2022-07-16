@@ -1659,12 +1659,13 @@ order by a.DOC_DATE
         treatment_sheet_data_qurey = ('''
         
         
-            select e.PATIENT_ID,m.PATIENT_NAME,e.BED_NUM,p.PRACTITIONER_NAME ATTEND_PRACTITIONER, s.LONG_DESC SPECIALITY,
+            select e.PATIENT_ID,m.PATIENT_NAME,e.NURSING_UNIT_CODE, e.BED_NUM,p.PRACTITIONER_NAME ATTEND_PRACTITIONER, s.LONG_DESC SPECIALITY,
             trunc(e.ADMISSION_DATE_TIME),trunc(sysdate) CURRENT_DATE,trunc(sysdate)-trunc(e.ADMISSION_DATE_TIME) ALOS,
             (trunc(sysdate)-trunc(e.ADMISSION_DATE_TIME))/3 CODE
             from ip_open_encounter e,mp_patient m,am_practitioner p,am_Speciality s where e.PATIENT_ID = m.PATIENT_ID 
-             and e.FACILITY_ID = 'KH' and e.ATTEND_PRACTITIONER_ID= p.PRACTITIONER_ID and 
+             and e.FACILITY_ID = 'KH' and e.ATTEND_PRACTITIONER_ID= p.PRACTITIONER_ID and  
              p.PRIMARY_SPECIALITY_CODE =s.SPECIALITY_CODE
+
 
         
         ''')
@@ -1997,20 +1998,21 @@ order by a.DOC_DATE
         return pre_discharge_report_data, column_name
 
     
-    def get_pre_discharge_report_2r(self,):
-        pre_discharge_report_2r_qurey = (''' 
+    def get_pre_discharge_report_2(self,):
+        pre_discharge_report_2_qurey = (''' 
 
-        select a.PATIENT_ID ,a.ENCOUNTER_ID ,initcap(b.short_name) , d.PRACTITIONER_NAME Doctor,e.ASSIGN_CARE_LOCN_CODE,e.ASSIGN_BED_NUM,  DIS_ADV_DATE_TIME , a.ADDED_BY_ID ,c.APPL_USER_NAME    
+       select a.PATIENT_ID ,a.ENCOUNTER_ID ,initcap(b.short_name) , d.PRACTITIONER_NAME Doctor,e.ASSIGN_CARE_LOCN_CODE,e.ASSIGN_BED_NUM,  DIS_ADV_DATE_TIME , a.ADDED_BY_ID ,c.APPL_USER_NAME    
         from ip_discharge_advice a,mp_patient_mast b, sm_appl_user_vw c,pr_encounter e, am_practitioner d  where A.DIS_ADV_STATUS='0'
-        and e.ENCOUNTER_ID=a.ENCOUNTER_ID and e.ATTEND_PRACTITIONER_ID=d.PRACTITIONER_ID
+        and e.ENCOUNTER_ID=a.ENCOUNTER_ID and e.ATTEND_PRACTITIONER_ID=d.PRACTITIONER_ID and e.CANCEL_REASON_CODE is null and e.DISCHARGE_DATE_TIME is null
         and a.patient_id = b.patient_id   and a.added_by_id = c.APPL_USER_ID   and c.language_id ='en'  
          and a.FACILITY_ID='KH'  order by DIS_ADV_DATE_TIME
 
 
+
 ''')    
     
-        self.cursor.execute(pre_discharge_report_2r_qurey)
-        pre_discharge_report_2r_data = self.cursor.fetchall()
+        self.cursor.execute(pre_discharge_report_2_qurey)
+        pre_discharge_report_2_data = self.cursor.fetchall()
 
         column_name = [i[0] for i in self.cursor.description]
         
@@ -2019,7 +2021,7 @@ order by a.DOC_DATE
         if self.ora_db:
             self.ora_db.close()
                  
-        return pre_discharge_report_2r_data, column_name
+        return pre_discharge_report_2_data, column_name
 
 
     def get_discharge_report_2(self,from_date,to_date):
@@ -3459,24 +3461,46 @@ and A.UPD_NET_CHARGE_AMT !=0 and a.blng_serv_code in ('OPGN000017')
 
 
 
-    def get_new_registration_report(self,city_input,from_date,to_date):
-        new_registration_report_qurey = (''' 
+    def get_new_registration_report(self,from_date,to_date,facility_code,city_input):
+
+        if facility_code == 'ALL':
+            
+            new_registration_report_qurey = (''' 
         
-select b.patient_id,b.regn_date,a.PATIENT_CLASS,a.ASSIGN_BED_CLASS_CODE, g.long_desc specilaity,e.practitioner_name, b.patient_name,b.email_id,b.contact2_no,j.ADDR1_TYPE,
-j.addr1_line1 || ' ' || j.addr1_line2 || ' ' || j.addr1_line3 || ' ' || j.addr1_line4 Address, j.POSTAL1_CODE as Postal_Code ,
-k.LONG_NAME as Country from pr_encounter a,mp_patient b,mp_pat_addresses j,mp_country k,am_speciality g ,am_practitioner e
-where a.patient_id=b.patient_id AND j.PATIENT_ID = b.PATIENT_ID and j.COUNTRY1_CODE=k.COUNTRY_CODE
-and a.ATTEND_PRACTITIONER_ID = e.practitioner_id 
-and g.SPECIALITY_CODE = a.SPECIALTY_CODE and  g.SPECIALITY_CODE = e.PRIMARY_SPECIALITY_CODE
-and b.regn_date  between :from_date and to_date(:to_date)+1   
-and b.ADDED_FACILITY_ID in ('AK','KH','DF','GO','RH','SL')
-and (upper(addr1_line1) like '%'||:city_input||'%' or 
-upper(addr1_line2) like '%'||:city_input||'%' or upper(addr1_line3) 
-like '%'||:city_input||'%' or upper(addr1_line4) like '%'||:city_input||'%' )
+            select b.patient_id,b.regn_date,a.PATIENT_CLASS,a.ASSIGN_BED_CLASS_CODE, g.long_desc specilaity,e.practitioner_name, b.patient_name,b.email_id,b.contact2_no,j.ADDR1_TYPE,
+            j.addr1_line1 || ' ' || j.addr1_line2 || ' ' || j.addr1_line3 || ' ' || j.addr1_line4 Address, j.POSTAL1_CODE as Postal_Code ,
+            k.LONG_NAME as Country from pr_encounter a,mp_patient b,mp_pat_addresses j,mp_country k,am_speciality g ,am_practitioner e
+            where a.patient_id=b.patient_id AND j.PATIENT_ID = b.PATIENT_ID and j.COUNTRY1_CODE=k.COUNTRY_CODE
+            and a.ATTEND_PRACTITIONER_ID = e.practitioner_id 
+            and g.SPECIALITY_CODE = a.SPECIALTY_CODE and  g.SPECIALITY_CODE = e.PRIMARY_SPECIALITY_CODE
+            and b.regn_date  between :from_date and to_date(:to_date)+1   
+            and b.ADDED_FACILITY_ID in ('AK','KH','DF','GO','RH','SL')
+            and (upper(addr1_line1) like '%'||:city_input||'%' or 
+            upper(addr1_line2) like '%'||:city_input||'%' or upper(addr1_line3) 
+            like '%'||:city_input||'%' or upper(addr1_line4) like '%'||:city_input||'%' )
 
 ''')
+            self.cursor.execute(new_registration_report_qurey,[from_date,to_date,city_input])
 
-        self.cursor.execute(new_registration_report_qurey,[from_date,to_date,city_input])
+        else:
+            new_registration_report_qurey = (''' 
+        
+            select b.patient_id,b.regn_date,a.PATIENT_CLASS,a.ASSIGN_BED_CLASS_CODE, g.long_desc specilaity,e.practitioner_name, b.patient_name,b.email_id,b.contact2_no,j.ADDR1_TYPE,
+            j.addr1_line1 || ' ' || j.addr1_line2 || ' ' || j.addr1_line3 || ' ' || j.addr1_line4 Address, j.POSTAL1_CODE as Postal_Code ,
+            k.LONG_NAME as Country from pr_encounter a,mp_patient b,mp_pat_addresses j,mp_country k,am_speciality g ,am_practitioner e
+            where a.patient_id=b.patient_id AND j.PATIENT_ID = b.PATIENT_ID and j.COUNTRY1_CODE=k.COUNTRY_CODE
+            and a.ATTEND_PRACTITIONER_ID = e.practitioner_id 
+            and g.SPECIALITY_CODE = a.SPECIALTY_CODE and  g.SPECIALITY_CODE = e.PRIMARY_SPECIALITY_CODE
+            and b.regn_date  between :from_date and to_date(:to_date)+1   
+            and b.ADDED_FACILITY_ID = :facility_code
+            and (upper(addr1_line1) like '%'||:city_input||'%' or 
+            upper(addr1_line2) like '%'||:city_input||'%' or upper(addr1_line3) 
+            like '%'||:city_input||'%' or upper(addr1_line4) like '%'||:city_input||'%' )
+
+
+''')
+            self.cursor.execute(new_registration_report_qurey,[from_date,to_date,facility_code,city_input])
+        
         new_registration_report_data = self.cursor.fetchall()
         column_name = [i[0] for i in self.cursor.description]
 
